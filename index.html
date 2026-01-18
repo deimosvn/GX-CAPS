@@ -4257,7 +4257,7 @@
                     <div class="p-info">
                         <span class="p-edition">Hecho en Mexicali</span>
                         <span class="p-name">Poison</span>
-                        <span class="p-price">$1,100 MXN</span>
+                        <span class="p-price">$850 MXN</span>
                     </div>
                     <div class="p-click-hint">Click para ver detalles</div>
                 </div>
@@ -4272,7 +4272,7 @@
                     <div class="p-info">
                         <span class="p-edition">Hecho en Mexicali</span>
                         <span class="p-name">Lonely</span>
-                        <span class="p-price">$1,100 MXN</span>
+                        <span class="p-price">$850 MXN</span>
                     </div>
                     <div class="p-click-hint">Click para ver detalles</div>
                 </div>
@@ -4833,15 +4833,15 @@
                 name: 'Poison',
                 image: 'poison.jpeg',
                 description: 'Poison representa ese lado oscuro que todos tenemos. Es para los que saben que a veces lo que te daña también te define. Un diseño atrevido para mentes inquietas.',
-                price: '$1,100 MXN',
-                priceNum: 1100
+                price: '$850 MXN',
+                priceNum: 850
             },
             lonely: {
                 name: 'Lonely',
                 image: 'lonely.jpeg',
                 description: 'Lonely es para los que disfrutan su propia compañía. No es soledad, es independencia. Un statement para quienes prefieren caminar solos que seguir a la multitud.',
-                price: '$1,100 MXN',
-                priceNum: 1100
+                price: '$850 MXN',
+                priceNum: 850
             },
             broken: {
                 name: 'Broken',
@@ -4882,7 +4882,7 @@
                 
                 // Update WhatsApp direct link
                 const whatsappBtn = document.getElementById('btnWhatsappDirect');
-                const msg = encodeURIComponent(`¡Hola! Me interesa la gorra "${product.name}" de $1,100 MXN 🧢`);
+                const msg = encodeURIComponent(`¡Hola! Me interesa la gorra "${product.name}" de ${product.price} 🧢`);
                 whatsappBtn.href = `https://wa.me/526863936477?text=${msg}`;
                 
                 // Save scroll position and lock body
