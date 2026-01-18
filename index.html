@@ -109,6 +109,44 @@
             touch-action: pan-y !important;
         }
 
+        /* MOBILE SCROLL FIX - Global touch device styles */
+        @media (pointer: coarse), (max-width: 768px) {
+            html {
+                overflow-x: hidden !important;
+                overflow-y: scroll !important;
+                height: auto !important;
+            }
+            body {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                height: auto !important;
+                position: static !important;
+                touch-action: pan-y !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            body:not(.modal-open) {
+                overflow-y: visible !important;
+                position: static !important;
+            }
+            /* Force all sections to be scrollable */
+            section,
+            .hero,
+            .feature-section,
+            .section-padding,
+            main {
+                overflow: visible !important;
+                height: auto !important;
+                max-height: none !important;
+                touch-action: pan-y !important;
+            }
+            /* Disable any fixed positioning that might interfere (except nav and modals) */
+            .hero-corner,
+            .hero-grid,
+            .scroll-indicator {
+                display: none !important;
+            }
+        }
+
 
         /* 
          * =========================================
@@ -3078,8 +3116,10 @@
             }
             
             .feature-section {
-                height: 70vh;
-                margin-top: 4rem;
+                height: auto !important;
+                min-height: 50vh;
+                margin-top: 3rem;
+                overflow: visible !important;
             }
             .feature-text {
                 font-size: 12vw;
@@ -3293,6 +3333,21 @@
         
         /* Extra small devices (phones, less than 576px) */
         @media (max-width: 575.98px) {
+            /* CRITICAL: Force native scroll on mobile */
+            html, body {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                height: auto !important;
+                position: relative !important;
+                touch-action: pan-y !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            
+            /* Remove all fixed heights that block scroll */
+            * {
+                max-height: none;
+            }
+            
             /* Base spacing adjustments */
             html {
                 font-size: 14px;
@@ -3645,9 +3700,12 @@
             
             /* Feature Section */
             .feature-section {
-                height: 60vh;
-                min-height: 400px;
-                margin-top: 3rem;
+                height: auto !important;
+                min-height: 50vh;
+                max-height: none !important;
+                margin-top: 2rem;
+                overflow: visible !important;
+                padding: 3rem 1rem;
             }
             .feature-label {
                 font-size: 0.6rem;
@@ -4693,7 +4751,12 @@
         
         // 2. PRELOADER ANIMATION
         window.addEventListener('load', () => {
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    // Hide preloader completely after animation
+                    document.querySelector('.preloader').style.display = 'none';
+                }
+            });
             
             tl.to('.progress-fill', { width: '100%', duration: 1, ease: 'power2.inOut' })
               .to('.preloader-text', { y: -100, opacity: 0, duration: 0.5, delay: 0.2 })
