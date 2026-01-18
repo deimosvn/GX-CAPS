@@ -52,11 +52,18 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-body);
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -1389,6 +1396,9 @@
          */
         .light-section {
             background: var(--bg-light) !important;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
         .light-section .section-label {
             color: var(--accent-secondary);
@@ -3191,37 +3201,39 @@
                 max-height: 380px;
             }
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             
-            /* Product cards 480px - Keep single column */
+            /* Product cards 480px */
             .grid-container {
                 grid-template-columns: 1fr;
-                gap: 1.2rem;
-                padding: 0 1rem;
-                max-width: 360px;
+                gap: 0.8rem;
+                padding: 0 0.8rem;
+                max-width: 100%;
+                width: 100%;
             }
             .product-card {
-                aspect-ratio: 3/4;
-                border-radius: 16px;
+                aspect-ratio: 1/1;
+                border-radius: 10px;
+                width: 100%;
             }
             .p-info {
-                padding: 1.2rem 1rem;
+                padding: 0.8rem;
             }
             .p-name {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
             }
             .p-price {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
             .p-edition {
-                font-size: 0.55rem;
+                font-size: 0.5rem;
             }
             .p-tag {
-                font-size: 0.55rem;
-                padding: 0.4rem 0.8rem;
-                top: 0.8rem;
-                left: 0.8rem;
+                font-size: 0.5rem;
+                padding: 0.3rem 0.6rem;
+                top: 0.6rem;
+                left: 0.6rem;
             }
             
             .feature-text {
@@ -3380,34 +3392,40 @@
             
             /* Section Headers */
             .section-header {
-                padding: 0 1rem;
-                margin-bottom: 2rem;
+                padding: 0 1.2rem;
+                margin-bottom: 1.5rem;
             }
             .section-label {
                 font-size: 0.6rem;
             }
             .section-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             .section-desc {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
+                line-height: 1.6;
             }
             
-            /* Product Grid - Mobile: ONE COLUMN COMPACT */
+            /* Product Grid - Mobile: PERFECT FIT */
             .section-padding {
-                padding: 2.5rem 0;
+                padding: 2rem 0;
             }
             .grid-container {
+                display: grid;
                 grid-template-columns: 1fr;
-                padding: 0 1.5rem;
+                padding: 0 1rem;
                 gap: 1rem;
-                max-width: 320px;
+                max-width: 100%;
+                width: 100%;
                 margin: 0 auto;
+                box-sizing: border-box;
             }
             .product-card {
-                aspect-ratio: 4/5;
-                border-radius: 14px;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+                width: 100%;
+                max-width: 100%;
+                aspect-ratio: 1/1.1;
+                border-radius: 12px;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.35);
                 min-height: auto;
             }
             .product-card::before {
