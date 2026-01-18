@@ -77,6 +77,12 @@
         /* Custom Scrollbar hide */
         ::-webkit-scrollbar { width: 0; }
 
+        /* Modal open - prevent background scroll */
+        body.modal-open {
+            overflow: hidden !important;
+            height: 100vh !important;
+            touch-action: none;
+        }
 
 
         /* 
@@ -3569,31 +3575,36 @@
             .product-modal {
                 padding: 0;
                 align-items: flex-start;
-                overflow-y: auto;
+                overflow-y: scroll !important;
                 -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
             }
             .modal-content {
                 max-height: none;
                 height: auto;
-                min-height: 100vh;
+                min-height: auto;
                 border-radius: 0;
                 grid-template-columns: 1fr;
-                grid-template-rows: auto auto;
+                grid-template-rows: auto auto auto;
                 overflow: visible;
+                display: flex;
+                flex-direction: column;
             }
             .modal-image {
-                min-height: 280px;
-                max-height: 300px;
+                min-height: 250px;
+                max-height: 280px;
                 height: 35vh;
                 position: relative;
                 flex-shrink: 0;
+                width: 100%;
             }
             .modal-details {
                 padding: 1.5rem;
-                padding-bottom: 100px;
+                padding-bottom: 1.5rem;
                 overflow: visible;
                 max-height: none;
                 min-height: auto;
+                flex: 1;
             }
             .modal-tag {
                 font-size: 0.6rem;
@@ -3631,16 +3642,17 @@
             }
             .modal-cta {
                 gap: 0.8rem;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
                 background: var(--bg-light);
-                padding: 1rem;
+                padding: 1.5rem;
                 margin: 0;
                 border-top: 1px solid rgba(0,0,0,0.1);
                 z-index: 10;
-                box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+                box-shadow: none;
+                flex-shrink: 0;
             }
             .btn-add-cart,
             .btn-whatsapp {
@@ -4767,23 +4779,18 @@
                 whatsappBtn.href = `https://wa.me/526863936477?text=${msg}`;
                 
                 modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-                document.body.style.top = `-${window.scrollY}px`;
+                document.body.classList.add('modal-open');
                 lenis.stop();
+                
+                // Reset scroll position del modal
+                modal.scrollTop = 0;
             }
         }
 
         function closeProductModal() {
             const modal = document.getElementById('productModal');
             modal.classList.remove('active');
-            const scrollY = document.body.style.top;
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.width = '';
-            document.body.style.top = '';
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            document.body.classList.remove('modal-open');
             currentProductId = null;
             lenis.start();
         }
