@@ -111,13 +111,15 @@
 
         /* MOBILE SCROLL FIX - Global touch device styles */
         @media (pointer: coarse), (max-width: 768px) {
-            /* NUCLEAR FIX: Force everything to be scrollable */
+            /* NUCLEAR FIX: Prevent horizontal scroll */
             html {
                 overflow-x: hidden !important;
                 overflow-y: scroll !important;
                 height: auto !important;
                 min-height: 100% !important;
                 scroll-behavior: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             body {
                 overflow-x: hidden !important;
@@ -125,9 +127,12 @@
                 height: auto !important;
                 min-height: 100vh !important;
                 position: static !important;
-                touch-action: manipulation !important;
+                touch-action: pan-y !important;
                 -webkit-overflow-scrolling: touch !important;
-                overscroll-behavior: auto !important;
+                overscroll-behavior-x: none !important;
+                overscroll-behavior-y: auto !important;
+                width: 100% !important;
+                max-width: 100vw !important;
             }
             body:not(.modal-open) {
                 overflow: visible !important;
@@ -172,7 +177,7 @@
                 height: auto !important;
                 min-height: 40vh !important;
                 max-height: none !important;
-                overflow: visible !important;
+                overflow: hidden !important;
             }
             
             /* Disable all fixed/sticky elements that might interfere (except nav and modals) */
@@ -191,6 +196,36 @@
             .noise {
                 pointer-events: none !important;
                 touch-action: none !important;
+            }
+            
+            /* PREVENT HORIZONTAL OVERFLOW - Contain all elements */
+            *,
+            *::before,
+            *::after {
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Specific elements that often cause horizontal overflow */
+            .hero::before,
+            .hero-grid,
+            .ticker,
+            .ticker-wrap,
+            .feature-bg,
+            nav,
+            section,
+            main,
+            footer,
+            .modal-content,
+            .gallery-container,
+            .grid-container {
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+            }
+            
+            /* Fix hero decorative elements that extend beyond viewport */
+            .hero::before {
+                display: none !important;
             }
         }
 
