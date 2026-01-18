@@ -3174,43 +3174,46 @@
                 height: 38px;
             }
             .hero-titles h1 {
-                font-size: 1.9rem;
+                font-size: 2rem;
             }
             .card-stack {
-                width: 260px;
-                height: 340px;
+                width: 70vw;
+                max-width: 280px;
+                height: 95vw;
+                max-height: 380px;
             }
             .section-title {
                 font-size: 1.8rem;
             }
             
-            /* Product cards 480px */
+            /* Product cards 480px - Keep single column */
             .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
-                padding: 0 0.5rem;
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 0 1rem;
+                max-width: 360px;
             }
             .product-card {
-                aspect-ratio: 2/3;
-                border-radius: 10px;
+                aspect-ratio: 3/4;
+                border-radius: 16px;
             }
             .p-info {
-                padding: 0.7rem 0.6rem;
+                padding: 1.2rem 1rem;
             }
             .p-name {
-                font-size: 0.9rem;
+                font-size: 1.3rem;
             }
             .p-price {
-                font-size: 0.75rem;
+                font-size: 0.95rem;
             }
             .p-edition {
-                font-size: 0.45rem;
+                font-size: 0.55rem;
             }
             .p-tag {
-                font-size: 0.45rem;
-                padding: 0.25rem 0.5rem;
-                top: 0.5rem;
-                left: 0.5rem;
+                font-size: 0.55rem;
+                padding: 0.4rem 0.8rem;
+                top: 0.8rem;
+                left: 0.8rem;
             }
             
             .feature-text {
@@ -3277,54 +3280,70 @@
                 height: 20px;
             }
             
-            /* Hero Section */
+            /* Hero Section - Mobile */
             .hero {
-                padding: 0 1rem;
+                padding: 0 1.5rem;
                 min-height: 100vh;
-                padding-top: 80px;
+                min-height: 100dvh;
+                padding-top: 70px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0;
             }
             .hero-titles {
-                margin-bottom: 1.5rem;
+                margin-bottom: 1rem;
+                order: 1;
             }
             .hero-titles h1 {
-                font-size: 2.2rem;
-                line-height: 1.15;
+                font-size: 2.4rem;
+                line-height: 1.1;
+                text-align: center;
             }
             .hero-subtitle {
-                font-size: 0.6rem;
-                letter-spacing: 0.2em;
-                margin-top: 0.8rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.25em;
+                margin-top: 0.6rem;
+                text-align: center;
             }
             .hero-cta {
-                margin-top: 1.5rem;
+                margin-top: 1rem;
+                display: none;
             }
             .hero-cta a {
-                padding: 0.9rem 2rem;
-                font-size: 0.65rem;
+                padding: 1rem 2.5rem;
+                font-size: 0.7rem;
+            }
+            .hero-container {
+                order: 2;
+                margin-top: 1rem;
             }
             
             /* Card Stack - Mobile Hero */
             .card-stack {
-                width: 280px;
-                height: 370px;
-                margin: 1.5rem auto 2.5rem;
+                width: 75vw;
+                max-width: 300px;
+                height: 100vw;
+                max-height: 400px;
+                margin: 0 auto 2rem;
             }
             .hero-card {
-                border-radius: 16px;
+                border-radius: 20px;
                 box-shadow: 
-                    0 30px 80px rgba(0,0,0,0.95),
-                    0 0 0 1px rgba(201, 169, 98, 0.2);
+                    0 25px 60px rgba(0,0,0,0.9),
+                    0 0 0 1px rgba(201, 169, 98, 0.25);
             }
             .slide-card {
-                border-radius: 16px;
+                border-radius: 20px;
             }
             .slider-indicators {
-                bottom: -35px;
-                gap: 10px;
+                bottom: -40px;
+                gap: 12px;
             }
             .slider-dot {
-                width: 8px;
-                height: 8px;
+                width: 10px;
+                height: 10px;
             }
             
             /* Scroll Indicator */
@@ -3366,51 +3385,53 @@
                 font-size: 0.85rem;
             }
             
-            /* Product Grid - Mobile Optimized */
+            /* Product Grid - Mobile: ONE COLUMN */
             .section-padding {
                 padding: 3rem 0;
             }
             .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 0 0.75rem;
-                gap: 0.75rem;
+                grid-template-columns: 1fr;
+                padding: 0 1.5rem;
+                gap: 1.5rem;
+                max-width: 400px;
+                margin: 0 auto;
             }
             .product-card {
-                aspect-ratio: 2/3;
-                border-radius: 12px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                aspect-ratio: 3/4;
+                border-radius: 20px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             }
             .product-card::before {
-                background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.1) 60%, transparent 100%);
+                background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
             }
             .p-img-container img {
-                object-position: center top;
+                object-position: center center;
             }
             .p-info {
-                padding: 1rem 0.8rem;
-                gap: 0.15rem;
+                padding: 1.5rem 1.2rem;
+                gap: 0.2rem;
             }
             .p-name {
-                font-size: 1rem;
+                font-size: 1.5rem;
                 line-height: 1.2;
-                margin-bottom: 0.2rem;
+                margin-bottom: 0.3rem;
             }
             .p-price {
-                font-size: 0.8rem;
+                font-size: 1rem;
                 font-weight: 600;
                 color: var(--accent-color);
             }
             .p-edition {
-                font-size: 0.5rem;
-                margin-bottom: 0.2rem;
-                letter-spacing: 0.15em;
+                font-size: 0.6rem;
+                margin-bottom: 0.3rem;
+                letter-spacing: 0.2em;
             }
             .p-tag {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.5rem;
-                top: 0.6rem;
-                left: 0.6rem;
-                border-radius: 4px;
+                padding: 0.5rem 1rem;
+                font-size: 0.6rem;
+                top: 1rem;
+                left: 1rem;
+                border-radius: 6px;
                 background: rgba(0,0,0,0.7);
                 backdrop-filter: blur(10px);
             }
@@ -3624,70 +3645,76 @@
             .product-modal {
                 padding: 0;
                 align-items: flex-start;
+                justify-content: flex-start;
                 overflow-y: scroll !important;
+                overflow-x: hidden;
                 -webkit-overflow-scrolling: touch;
-                overscroll-behavior: contain;
+                overscroll-behavior-y: contain;
             }
             .modal-content {
                 max-height: none;
                 height: auto;
-                min-height: auto;
+                min-height: 100%;
                 border-radius: 0;
                 grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
+                grid-template-rows: auto 1fr auto;
                 overflow: visible;
                 display: flex;
                 flex-direction: column;
+                width: 100%;
+                max-width: 100%;
             }
             .modal-image {
-                min-height: 250px;
-                max-height: 280px;
-                height: 35vh;
+                min-height: 280px;
+                max-height: 320px;
+                height: 40vh;
                 position: relative;
                 flex-shrink: 0;
                 width: 100%;
             }
             .modal-details {
                 padding: 1.5rem;
-                padding-bottom: 1.5rem;
+                padding-bottom: 1rem;
                 overflow: visible;
                 max-height: none;
                 min-height: auto;
-                flex: 1;
+                flex: 1 1 auto;
             }
             .modal-tag {
-                font-size: 0.6rem;
+                font-size: 0.65rem;
             }
             .modal-name {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .modal-price {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
                 margin-bottom: 1rem;
             }
             .modal-description {
-                font-size: 0.85rem;
-                margin-bottom: 1rem;
+                font-size: 0.9rem;
+                margin-bottom: 1.2rem;
+                line-height: 1.7;
             }
             .modal-features {
-                margin-bottom: 1rem;
+                margin-bottom: 1.2rem;
             }
             .modal-features h4 {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
             .modal-features li {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 padding-left: 1.2rem;
+                margin-bottom: 0.5rem;
             }
             .modal-delivery {
-                padding: 1rem;
+                padding: 1.2rem;
                 margin-bottom: 1rem;
             }
             .modal-delivery h4 {
-                font-size: 0.7rem;
+                font-size: 0.75rem;
             }
             .modal-delivery p {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             .modal-cta {
                 gap: 0.8rem;
