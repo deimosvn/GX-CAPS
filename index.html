@@ -111,39 +111,86 @@
 
         /* MOBILE SCROLL FIX - Global touch device styles */
         @media (pointer: coarse), (max-width: 768px) {
+            /* NUCLEAR FIX: Force everything to be scrollable */
             html {
                 overflow-x: hidden !important;
                 overflow-y: scroll !important;
                 height: auto !important;
+                min-height: 100% !important;
+                scroll-behavior: auto !important;
             }
             body {
                 overflow-x: hidden !important;
                 overflow-y: visible !important;
                 height: auto !important;
+                min-height: 100vh !important;
                 position: static !important;
-                touch-action: pan-y !important;
+                touch-action: manipulation !important;
                 -webkit-overflow-scrolling: touch !important;
+                overscroll-behavior: auto !important;
             }
             body:not(.modal-open) {
-                overflow-y: visible !important;
+                overflow: visible !important;
                 position: static !important;
             }
+            
+            /* Force ALL elements to allow scroll pass-through */
+            *:not(.product-modal):not(.galeria-modal):not(.nav-links):not(.preloader) {
+                touch-action: inherit !important;
+                overscroll-behavior: auto !important;
+            }
+            
             /* Force all sections to be scrollable */
             section,
             .hero,
             .feature-section,
             .section-padding,
+            .ticker-wrap,
+            .gallery-strip,
+            .about-section,
+            .contact-section,
+            footer,
             main {
                 overflow: visible !important;
                 height: auto !important;
                 max-height: none !important;
-                touch-action: pan-y !important;
+                min-height: auto !important;
+                position: relative !important;
+                touch-action: pan-y pinch-zoom !important;
             }
-            /* Disable any fixed positioning that might interfere (except nav and modals) */
+            
+            /* Specifically fix hero */
+            .hero {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Specifically fix feature section */
+            .feature-section {
+                height: auto !important;
+                min-height: 40vh !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Disable all fixed/sticky elements that might interfere (except nav and modals) */
             .hero-corner,
             .hero-grid,
-            .scroll-indicator {
+            .scroll-indicator,
+            .particles,
+            .stars,
+            .hero-rings,
+            .hero-orb,
+            .hero-bg-text {
                 display: none !important;
+            }
+            
+            /* Make sure noise overlay doesn't capture touches */
+            .noise {
+                pointer-events: none !important;
+                touch-action: none !important;
             }
         }
 
@@ -4721,12 +4768,15 @@
     </main>
 
     <script>
-        // 1. SETUP LENIS (SMOOTH SCROLL)
+        // 1. SETUP LENIS (SMOOTH SCROLL) - DISABLED ON MOBILE
         const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+        
+        // Completely disable Lenis on touch devices
         const lenis = isTouchDevice ? {
             stop: () => {},
             start: () => {},
-            raf: () => {}
+            raf: () => {},
+            destroy: () => {}
         } : new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -4746,15 +4796,35 @@
             requestAnimationFrame(raf);
         }
 
-        // Integrar Lenis con ScrollTrigger
+        // Integrar Lenis con ScrollTrigger - ONLY ON DESKTOP
         gsap.registerPlugin(ScrollTrigger);
+        
+        // CRITICAL: Disable ScrollTrigger normalizeScroll on mobile to prevent scroll hijacking
+        if (isTouchDevice) {
+            ScrollTrigger.normalizeScroll(false);
+            ScrollTrigger.config({ ignoreMobileResize: true });
+        }
         
         // 2. PRELOADER ANIMATION
         window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            
+            // On mobile, hide preloader faster and simpler
+            if (isTouchDevice) {
+                gsap.to(preloader, { 
+                    opacity: 0, 
+                    duration: 0.5, 
+                    onComplete: () => {
+                        preloader.style.display = 'none';
+                    }
+                });
+                return;
+            }
+            
             const tl = gsap.timeline({
                 onComplete: () => {
                     // Hide preloader completely after animation
-                    document.querySelector('.preloader').style.display = 'none';
+                    preloader.style.display = 'none';
                 }
             });
             
@@ -5318,6 +5388,33 @@
             
             // Optional: Reset form
             document.getElementById('contactForm').reset();
+        }
+
+        // MOBILE SCROLL FIX: Force native scroll behavior after page load
+        if (isTouchDevice) {
+            window.addEventListener('load', () => {
+                // Kill any ScrollTrigger instances that might have been created
+                ScrollTrigger.getAll().forEach(st => st.kill());
+                
+                // Force body to be scrollable
+                document.body.style.overflow = 'visible';
+                document.body.style.position = 'static';
+                document.body.style.height = 'auto';
+                document.documentElement.style.overflow = 'auto';
+                document.documentElement.style.height = 'auto';
+                
+                // Remove any transform that might interfere
+                document.querySelectorAll('.hero, .feature-section, section').forEach(el => {
+                    el.style.transform = 'none';
+                    el.style.overflow = 'visible';
+                    el.style.height = 'auto';
+                });
+            });
+            
+            // Also run after a short delay to catch any late-loading scripts
+            setTimeout(() => {
+                ScrollTrigger.getAll().forEach(st => st.kill());
+            }, 1000);
         }
 
     </script>
